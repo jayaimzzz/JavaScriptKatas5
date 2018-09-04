@@ -7,6 +7,15 @@ function testFunction(functionToTest, input, expectedResult) {
         "result": result
     })
 }
+function testEvaluateExpressions(expression, values, expectedResult) {
+    let result = evaluateExpression(expression, values)
+    console.assert(result === expectedResult, {
+        "function": evaluateExpression.name,
+        "input": expression, values,
+        "expectedResult": expectedResult,
+        "result": result
+    })
+}
 
 function reverseString(string) {
     let result = '';
@@ -80,6 +89,15 @@ function distinctValuesFromAListPlusCount(string) {
     return result.trim();
 }
 
+
+function evaluateExpression(expression, values){
+    let alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z'];
+    for(i = 0; i < alphabet.length; i++){
+        expression = expression.replace(alphabet[i],values[alphabet[i]])
+    }
+    return eval(expression);
+}
+
 testFunction(reverseString, 'abc', 'cba');
 testFunction(reverseString, 'James is testing!', '!gnitset si semaJ');
 testFunction(reverseASentence, 'test one two', 'two one test');
@@ -93,4 +111,8 @@ testFunction(calculateTheRemainder, [-27, 5], -2);
 testFunction(distinctValuesFromAList, '1 3 5 3 7 3 1 1 5', '1 3 5 7');
 testFunction(distinctValuesFromAList, '1 4 3 4 56 7 56 -1 6 -1', '1 4 3 56 7 -1 6');
 testFunction(distinctValuesFromAListPlusCount, '1 3 5 3 7 3 1 1 5', '1(3) 3(3) 5(2) 7(1)');
-testFunction(distinctValuesFromAListPlusCount, '4 3 4 5 6 5 6 7 6 -2 4', '4(3) 3(1) 5(2) 6(3) 7(1) -2(1)')
+testFunction(distinctValuesFromAListPlusCount, '4 3 4 5 6 5 6 7 6 -2 4', '4(3) 3(1) 5(2) 6(3) 7(1) -2(1)');
+testEvaluateExpressions("a + b", {a: 1, b: 2}, 3);
+testEvaluateExpressions("a + b + c - d", {a: 1, b: 7, c: 3, d: 14}, -3);
+testEvaluateExpressions("a * z - c", {a: 2, c: 5, z: 6}, 7);
+testEvaluateExpressions("a * (z - c)", {a: 2, c: 5, z: 6}, 2);
