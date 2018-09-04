@@ -65,6 +65,7 @@ function distinctValuesFromAListPlusCount(string) {
     stringArray = string.split(' ');
     let counts = {};
     let values = [];
+    let result = '';
     for (i = 0; i < stringArray.length; i++) {
         if (!values.includes(stringArray[i])) {
             values.push(stringArray[i]);
@@ -73,8 +74,10 @@ function distinctValuesFromAListPlusCount(string) {
             counts[stringArray[i]] =  counts[stringArray[i]] + 1;
         }
     }
-    console.log(counts)
-    return values.join(' ')
+    for(let i = 0; i < values.length; i++){
+        result = result + values[i] + '(' + counts[values[i]] + ') '
+    }
+    return result.trim();
 }
 
 testFunction(reverseString, 'abc', 'cba');
@@ -90,3 +93,4 @@ testFunction(calculateTheRemainder, [-27, 5], -2);
 testFunction(distinctValuesFromAList, '1 3 5 3 7 3 1 1 5', '1 3 5 7');
 testFunction(distinctValuesFromAList, '1 4 3 4 56 7 56 -1 6 -1', '1 4 3 56 7 -1 6');
 testFunction(distinctValuesFromAListPlusCount, '1 3 5 3 7 3 1 1 5', '1(3) 3(3) 5(2) 7(1)');
+testFunction(distinctValuesFromAListPlusCount, '4 3 4 5 6 5 6 7 6 -2 4', '4(3) 3(1) 5(2) 6(3) 7(1) -2(1)')
